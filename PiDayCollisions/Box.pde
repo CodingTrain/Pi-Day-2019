@@ -4,6 +4,8 @@ class Box {
   float m;
   float dx;
 
+  float xConstrain;
+
   Box(float x, float w, float m, float dx) {
     this.x = x;
     this.m = m;
@@ -12,9 +14,13 @@ class Box {
     this.dx = dx;
   }
 
+  void setConstrain(float x) {
+    xConstrain = x;
+  }
+
   void show() {
     fill(255);
-    square(x, y, w);
+    square(constrain(x, xConstrain, width), y, w);
   }
 
   void update() {
@@ -27,11 +33,11 @@ class Box {
       ((2 * b.m /  sumM)) * b.dx;
     return dx2;
   }
-  
+
   boolean hitWall() {
-    return this.x <= 0; 
+    return this.x <= 0;
   }
-  
+
   void reverse() {
     this.dx *= -1;
   }

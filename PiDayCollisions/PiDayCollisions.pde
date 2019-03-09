@@ -5,12 +5,16 @@
 Box box1;
 Box box2;
 int count = 0;
-int timeSteps = 10000;
 int digits = 5;
+int timeSteps = 10000;
+
 void setup() {
   size(600, 200);
   box1 = new Box(150, 10, 1, 0);
   box2 = new Box(200, 100, pow(100, digits), -1.0 / timeSteps);
+
+  box1.setConstrain(0);
+  box2.setConstrain(box1.w);
 }
 
 void draw() {
