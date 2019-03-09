@@ -1,22 +1,20 @@
-
-
+// Test Code for Pi Day 2019 Challenge
+// https://thecodingtrain.com
+// Based on 3Blue1Brown: https://youtu.be/HEfHFsfGXjs
 
 Box box1;
 Box box2;
 int count = 0;
-//int scale = 10;
-
-int timeSteps = 100;
-
+int timeSteps = 10000;
+int digits = 5;
 void setup() {
   size(600, 200);
-  box1 = new Box(200, 10, 1, 0);
-  box2 = new Box(400, 100, 100, -1.0/timeSteps);
+  box1 = new Box(150, 10, 1, 0);
+  box2 = new Box(200, 100, pow(100, digits), -1.0 / timeSteps);
 }
 
 void draw() {
-
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < timeSteps; i++) {
     box1.update();
     box2.update();
 
@@ -40,5 +38,6 @@ void draw() {
   box2.show();
 
   fill(255);
-  text(count, 10, 20);
+  textSize(32);
+  text(nf(count/(pow(10, digits)), 1, digits), 10, 40);
 }
