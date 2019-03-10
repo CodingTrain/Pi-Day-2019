@@ -10,7 +10,7 @@ Box box1;
 Box box2;
 BigDecimal wall;
 int count = 0;
-int digits = 5;
+int digits = 10;
 
 MathContext mc = new MathContext(100);
 
