@@ -14,27 +14,28 @@ Box2DProcessing box2d;
 Box box1;
 Box box2;
 Boundary wall;
+Boundary floor;
 
 void setup() {
   size(640, 200);
-  // Initialize box2d physics and create the world
-  box2d = new Box2DProcessing(this);
+  box2d = new Box2DProcessing(this, 10);
   box2d.createWorld();
-  // We are setting a custom gravity
   box2d.setGravity(0, 0);
-  box1 = new Box(200, height/2, 50, 1, 0);
-  box2 = new Box(250, height/2, 50, pow(100, digits-1), -5);
+  box1 = new Box(200, height, 50, 1, 0);
+  box2 = new Box(350, height, 50, pow(100, digits-1), -2);
   wall = new Boundary(10, height/2, 10, height);
+  floor = new Boundary(width/2, height, width, 10);
 }
 
 void draw() {
   background(255);
 
-  float timeStep = 1.0f / 60f;
-  box2d.step(timeStep, 100, 100);
+  float timeStep = 1.0 / 60;
+  box2d.step(timeStep, 1000, 1000);
   box2d.world.clearForces();
 
   box1.show();
   box2.show();
   wall.show();
+  floor.show();
 }
