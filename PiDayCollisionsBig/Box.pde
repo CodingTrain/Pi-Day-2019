@@ -5,15 +5,16 @@ class Box {
   float y;
   float w;
 
-  float xConstrain;
+  float xConstrain = -100;
 
-  Box(float x, float w, BigInteger m, float dx) {
+  Box(float x, int w, BigInteger m, float dx) {
     this.x = big(x);
-    this.m = m;
+    this.y = height - w;
     this.w = w;
-    this.y = height - this.w - 1;
+    this.m = m;
     this.dx = big(dx);
   }
+
 
   void setConstrain(float x) {
     xConstrain = x;
@@ -29,21 +30,28 @@ class Box {
     x = x.add(dx);
   }
 
-  BigDecimal bounce(Box b) {
-    BigDecimal sumM = new BigDecimal(this.m.add(b.m));
-    BigDecimal dx1 = new BigDecimal(this.m.subtract(b.m));
-    dx1 = dx1.divide(sumM, mc).multiply(this.dx);
-    BigDecimal dx2 = new BigDecimal(b.m.multiply(big(2)));
-    dx2 = dx2.divide(sumM, mc).multiply(b.dx);
-    return dx1.add(dx2);
+  void bounce(Box b) {
+    BigDecimal v1 = this.dx;
+    BigDecimal v2 = b.dx;
+    BigDecimal m1 = new BigDecimal(this.m);
+    BigDecimal m2 = new BigDecimal(b.m);
+    BigDecimal sumM = m1.add(m2);
+
+    this.dx = m2.multiply(v2).multiply(big(2.0));
+    this.dx = this.dx.add(v1.multiply(m1.subtract(m2)));
+    this.dx = dx.divide(sumM, mc);
+
+    b.dx = m1.multiply(v1).multiply(big(2.0));
+    b.dx = b.dx.add(v2.multiply(m2.subtract(m1)));
+    b.dx = b.dx.divide(sumM, mc);
   }
 
   boolean hitWall() {
-    return this.x.compareTo(BigDecimal.ZERO) == -1;
+    return this.x.compareTo(wall) == -1;
   }
 
   void reverse() {
-    this.dx = this.dx.multiply(big(-1.0));
+    this.dx = this.dx.negate();
   }
 
   boolean collide(Box b) {
