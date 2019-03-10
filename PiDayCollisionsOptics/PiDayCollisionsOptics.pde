@@ -5,9 +5,9 @@ String pi;
 MathContext mc;
 
 void setup() {
-  mc = new MathContext(100);
+  mc = new MathContext(150);
   pi = loadStrings("pi.txt")[0];
-  int digits = 50;
+  int digits = 75;
   BigDecimal PI = new BigDecimal(pi);
   BigDecimal m1 = BigDecimal.ONE;
   BigDecimal m2 = BigDecimal.valueOf(100).pow(digits-1);
